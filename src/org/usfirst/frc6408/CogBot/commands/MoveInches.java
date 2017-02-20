@@ -35,10 +35,10 @@ public class MoveInches extends Command {
     	//Compares the two values, if one side has moved less than the other it speeds up a little bit.  
     	//If they are even then it stays the same.
     	//A type of autocorrect.
-    	if(leftDistance > rightDistance) {  
+    	if(leftDistance < rightDistance) {  
     		Robot.driveTrain.driveMotors(speed + 0.05, speed);
     	}
-    	else if(leftDistance < rightDistance) {
+    	else if(leftDistance > rightDistance) {
     		Robot.driveTrain.driveMotors(speed, speed + 0.05);
     	}
     	else {

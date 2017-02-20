@@ -30,7 +30,7 @@ public class MoveWinch extends Command {
     }
 
     protected boolean isFinished() {
-        return true;
+        return true;  //TODO: correct?
     }
 
     protected void end() {
