@@ -59,7 +59,7 @@ public class Robot extends IterativeRobot {
 
     public void autonomousInit() {
     	//Run the command for autonomous.
-    	autonomousCommand = new MoveInches(93.3);
+    	autonomousCommand = new MoveInches(86.3 - 24.25); //distance to move
         if (autonomousCommand != null) autonomousCommand.start();
     }
 

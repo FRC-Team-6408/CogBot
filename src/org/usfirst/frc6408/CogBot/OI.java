@@ -50,11 +50,12 @@ public class OI {
         speed0Button = new JoystickButton(mainJoy, 12);
         speed0Button.whenPressed(new SetDriveSpeed(0));
 
+        //idk, it was there before
         SmartDashboard.putData("MoveInches", new MoveInches(12));
         SmartDashboard.putData("SetDriveSpeed", new SetDriveSpeed(50));
         SmartDashboard.putData("MoveWinch", new MoveWinch(50));
     }
-    
+   
     public Joystick getMainJoy() {
         return mainJoy;
     }
