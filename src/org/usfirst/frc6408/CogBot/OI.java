@@ -37,17 +37,17 @@ public class OI {
         turnWinch.whileHeld(new MoveWinch(95));  //TODO: set to 100, I set it to 95 so as not to break the machine.
         turnWinch.whenReleased(new MoveWinch(0));  //Stops movement
         
-        speed100Button = new JoystickButton(mainJoy, 7);
+        speed100Button = new JoystickButton(mainJoy, 8);
         speed100Button.whenPressed(new SetDriveSpeed(100));
-        speed80Button = new JoystickButton(mainJoy, 8);
+        speed80Button = new JoystickButton(mainJoy, 10);
         speed80Button.whenPressed(new SetDriveSpeed(80));
-        speed60Button = new JoystickButton(mainJoy, 9);
+        speed60Button = new JoystickButton(mainJoy, 12);
         speed60Button.whenPressed(new SetDriveSpeed(60));
-        speed40Button = new JoystickButton(mainJoy, 10);
+        speed40Button = new JoystickButton(mainJoy, 7);
         speed40Button.whenPressed(new SetDriveSpeed(40));
-        speed20Button = new JoystickButton(mainJoy, 11);
+        speed20Button = new JoystickButton(mainJoy, 9);
         speed20Button.whenPressed(new SetDriveSpeed(20));
-        speed0Button = new JoystickButton(mainJoy, 12);
+        speed0Button = new JoystickButton(mainJoy, 11);
         speed0Button.whenPressed(new SetDriveSpeed(0));
 
         //idk, it was there before
