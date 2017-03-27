@@ -17,7 +17,7 @@ import org.usfirst.frc6408.CogBot.Robot;
 public class MoveInches extends Command {
     private double inchesToMove;
     private double speed = 0.95;  //In percent.
-    private double extraSpeed = 1 - speed;  //Extra speed.
+    private double extraSpeed = 0.05 - speed;  //Extra speed.
     
     private int timesLeftIsFaster = 0;  //How many ticks the left is faster than the right
     private int timesRightIsFaster = 0;  //!"
@@ -38,22 +38,6 @@ public class MoveInches extends Command {
     	long leftDistance = Math.round(Robot.encoders.getLeftEncoder() * 100);  //Gets left encoder value to two decimal places
     	long rightDistance = Math.round(Robot.encoders.getRightEncoder() * 100);  //Gets right encoder value to two decimal places
     	
-    	//This checks for when the robot changes the autocorrect side and changes the speed of the autocorrect down.
-    	//eventually the autocorrect will take too long to change sides and be straight (enough).
-    	if(timesLeftIsFaster >= 0) {
-    		IsLeftFaster = true;
-    		IsRightFaster = false;
-    		extraSpeed -= 0.001;
-    	}
-    	else if (timesRightIsFaster >= 0) {
-    		IsLeftFaster = false;
-    		IsRightFaster = true;
-    		extraSpeed -= 0.001;
-    	}
-    	else {
-    		IsLeftFaster = false;
-    		IsRightFaster = false;
-		}
     	
     	//Compares the two values, if one side has moved less than the other it speeds up a little bit.  
     	//If they are even then it stays the same.
@@ -73,6 +57,30 @@ public class MoveInches extends Command {
     		timesLeftIsFaster = 0;
     		Robot.driveTrain.driveMotors(speed, speed);
     	}
+    	
+    	
+    	//This checks for when the robot changes the autocorrect side and changes the speed of the autocorrect down.
+    	//eventually the autocorrect will take too long to change sides and be straight (enough).
+    	if(timesLeftIsFaster > 0) {
+    		if(IsLeftFaster == false)
+    		{
+    			extraSpeed -= 0.002;
+    		}
+    		IsLeftFaster = true;
+    		IsRightFaster = false;
+    	}
+    	else if (timesRightIsFaster > 0) {
+    		if(IsRightFaster == false)
+    		{
+    			extraSpeed -= 0.002;
+    		}
+    		IsLeftFaster = false;
+    		IsRightFaster = true;
+    	}
+    	else {
+    		IsLeftFaster = false;
+    		IsRightFaster = false;
+		}
     }
 
     protected boolean isFinished() {
