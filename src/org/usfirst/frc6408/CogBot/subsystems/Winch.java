@@ -22,8 +22,8 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 //TODO: Finished probably?
 public class Winch extends Subsystem {
 	//The two motors in the CIM
-	public SpeedController winchSpeedControllerR = new Spark(4);
-	public SpeedController winchSpeedControllerL = new Spark(5);
+	public SpeedController winchSpeedControllerR = new Spark(8);
+	public SpeedController winchSpeedControllerL = new Spark(9);
 
 	public Winch () 
 	{
