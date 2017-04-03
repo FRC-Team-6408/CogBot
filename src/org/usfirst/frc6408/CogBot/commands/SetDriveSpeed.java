@@ -15,10 +15,10 @@ import org.usfirst.frc6408.CogBot.Robot;
 
 //TODO: Nothing
 public class SetDriveSpeed extends Command {
-    private int speed;
+    private double speed;
  
-    public SetDriveSpeed(int percent) {
-        speed = percent / 100;  //Turns the percent into a useable value. (0 - 1) (Or negitave if you want I guess.)
+    public SetDriveSpeed(double percent) {
+        speed = percent / 100.0;  //Turns the percent into a useable value. (0 - 1) (Or negitave if you want I guess.)
     } 
 
     protected void initialize() {

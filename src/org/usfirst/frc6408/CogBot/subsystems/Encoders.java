@@ -35,16 +35,29 @@ public class Encoders extends Subsystem {
     }
     
     public double getAverageDistance() {
-    	//Equation is: average of the distances -> converted to rotations -> converted to inches. (Each rotation is 19in.) 
-    	return (encL.getDistance() + encR.getDistance()) / 2 / 360 / 19; 
+    	//Equation is: average of the distances -> converted to rotations -> converted to inches. (Each rotation is 19in.)
+    	System.out.println(encL.getDistance() + encR.getDistance() / 2 / 360 * 19);
+    	return (encL.getDistance() + encR.getDistance()) / 2 / 360 * 19; 
     }
     
     public double getLeftEncoder() {
-    	return encL.getDistance() / 360 / 19;
+    	System.out.println(encL.getDistance() / 360 * 19 + " inches.");
+    	return encL.getDistance() / 360 * 19;
     }
     
     public double getRightEncoder() {
-    	return encR.getDistance() / 360 / 19;
+    	System.out.println(encL.getDistance() / 360 * 19 + " inches.");
+    	return encR.getDistance() / 360 * 19;
+    }
+    
+    public double getLeftEncoderInRotations() {
+    	System.out.println(encL.getDistance() / 360 + " rotations.");
+    	return encL.getDistance() / 360;
+    }
+    
+    public double getRightEncoderInRotations() {
+    	System.out.println(encL.getDistance() / 360 + " rotations.");
+    	return encR.getDistance() / 360;
     }
 }
 

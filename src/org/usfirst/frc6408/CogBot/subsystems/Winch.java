@@ -25,22 +25,20 @@ public class Winch extends Subsystem {
 	public SpeedController winchSpeedControllerR = new Spark(8);
 	public SpeedController winchSpeedControllerL = new Spark(9);
 
-	public Winch () 
-	{
+	public Winch () {
 		//I dunno what this does but it was here in the autogen scripts so i'm keeping it.
     	LiveWindow.addActuator("Winch", "Winch Speed Controller R", (Spark) winchSpeedControllerR);
     	LiveWindow.addActuator("Winch", "Winch Speed Controller L", (Spark) winchSpeedControllerL);
 	}
 	
-    public void initDefaultCommand() 
-    {
+    public void initDefaultCommand() {
     }
     
-    public void turnWinch (int percent)  //set percent to 0 to stop the motors.
-    {
+    public void turnWinch (double percent) { //set percent to 0 to stop the motors.
+    	System.out.println("CommandTurn: " + percent);
     	//Moves the motors
-    	winchSpeedControllerR.set(percent);
-    	winchSpeedControllerL.set(percent);
+    	winchSpeedControllerR.set(-percent);
+    	winchSpeedControllerL.set(-percent);
     }
 }
 

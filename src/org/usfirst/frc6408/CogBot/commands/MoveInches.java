@@ -16,8 +16,8 @@ import org.usfirst.frc6408.CogBot.Robot;
 //TODO: Test values to see if autocorrect is too much
 public class MoveInches extends Command {
     private double inchesToMove;
-    private double speed = 0.95;  //In percent.
-    private double extraSpeed = 0.05 - speed;  //Extra speed.
+    private double speed = -0.25;  //In percent.
+    private double extraSpeed = -0.05;  //Extra speed.
     
     private int timesLeftIsFaster = 0;  //How many ticks the left is faster than the right
     private int timesRightIsFaster = 0;  //!"
@@ -35,10 +35,10 @@ public class MoveInches extends Command {
     }
 
     protected void execute() {
-    	long leftDistance = Math.round(Robot.encoders.getLeftEncoder() * 100);  //Gets left encoder value to two decimal places
-    	long rightDistance = Math.round(Robot.encoders.getRightEncoder() * 100);  //Gets right encoder value to two decimal places
-    	
-    	
+    	//long leftDistance = Math.round(Robot.encoders.getLeftEncoder() * 100);  //Gets left encoder value to two decimal places
+    	//long rightDistance = Math.round(Robot.encoders.getRightEncoder() * 100);  //Gets right encoder value to two decimal places
+    	Robot.driveTrain.driveMotors(speed, speed - 0.1);
+    	/*
     	//Compares the two values, if one side has moved less than the other it speeds up a little bit.  
     	//If they are even then it stays the same.
     	//A type of autocorrect.
@@ -81,6 +81,7 @@ public class MoveInches extends Command {
     		IsLeftFaster = false;
     		IsRightFaster = false;
 		}
+		*/
     }
 
     protected boolean isFinished() {

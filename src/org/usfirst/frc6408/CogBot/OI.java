@@ -34,8 +34,12 @@ public class OI {
         mainJoy = new Joystick(0);
         
         turnWinch = new JoystickButton(mainJoy, 1);
-        turnWinch.whileHeld(new MoveWinch(95));  //TODO: set to 100, I set it to 95 so as not to break the machine.
-        turnWinch.whenReleased(new MoveWinch(0));  //Stops movement
+        turnWinch.whileHeld(new MoveWinch(MoveWinch.MOTOR_RUN_SPEED));  //TODO: set to 100, I set it to 50 so as not to break the machine.
+        turnWinch.whenReleased(new MoveWinch(MoveWinch.MOTOR_STOP_SPEED));  //Stops movement
+        turnWinch = new JoystickButton(mainJoy, 2);
+        turnWinch.whileHeld(new MoveWinch(-MoveWinch.MOTOR_RUN_SPEED));  //TODO: set to 100, I set it to 50 so as not to break the machine.
+        turnWinch.whenReleased(new MoveWinch(MoveWinch.MOTOR_STOP_SPEED));  //Stops movement
+        
         
         speed100Button = new JoystickButton(mainJoy, 8);
         speed100Button.whenPressed(new SetDriveSpeed(100));

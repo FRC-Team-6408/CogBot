@@ -15,10 +15,12 @@ import org.usfirst.frc6408.CogBot.Robot;
 
 //TODO: Nothing
 public class MoveWinch extends Command {
-    private int speed;
+	public static final double MOTOR_STOP_SPEED = 0.0;
+	public static final double MOTOR_RUN_SPEED = 0.5;
+    private double speed;
     
-    public MoveWinch(int percent) {
-        speed = percent / 100;  //Converts percent to a useable value
+    public MoveWinch(double percent) {
+        speed = percent;  //Converts percent to a useable value
         requires(Robot.winch);
     }
     
@@ -27,6 +29,7 @@ public class MoveWinch extends Command {
 
     protected void execute() {
     	Robot.winch.turnWinch(speed);  //Turns the winch
+    	System.out.println("CommandRun");
     }
 
     protected boolean isFinished() {

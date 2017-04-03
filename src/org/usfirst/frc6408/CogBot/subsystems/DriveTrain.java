@@ -19,15 +19,14 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 //TODO: Finished
 public class DriveTrain extends Subsystem {
-	public float speed = 0.5f;  //holds the speed value
+	public double speed = 0.5;  //holds the speed value
 	public RobotDrive drive = new RobotDrive(0, 1, 2, 3);
 
     public void initDefaultCommand() {
     	
     }
     
-    public void driveMotors(double leftSpeed, double rightSpeed) 
-    {
+    public void driveMotors(double leftSpeed, double rightSpeed) {
     	Robot.driveTrain.drive.setLeftRightMotorOutputs(leftSpeed, rightSpeed);
     }
     

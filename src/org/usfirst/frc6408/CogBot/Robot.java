@@ -59,7 +59,7 @@ public class Robot extends IterativeRobot {
 
     public void autonomousInit() {
     	//Run the command for autonomous.
-    	autonomousCommand = new MoveInches(86.3 - 24.25); //distance to move
+    	autonomousCommand = new MoveInches(62.05 + 1);//distance to move.  +1 Is just in case.
         if (autonomousCommand != null) autonomousCommand.start();
     }
 
@@ -72,7 +72,8 @@ public class Robot extends IterativeRobot {
     }
 
     public void teleopPeriodic() {
-    	driveTrain.driveDirection(-oi.getMainJoy().getY(), -oi.getMainJoy().getX());  //This moves the robot during teleop.
+    	System.out.println(encoders.encL.getDistance() + " " + encoders.encR.getDistance());
+    	driveTrain.driveDirection(oi.getMainJoy().getY(), -oi.getMainJoy().getX());  //This moves the robot during teleop.
         Scheduler.getInstance().run();
     }
 
