@@ -10,8 +10,8 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class RotateDegrees extends Command {
 	private double degreesMovedEachRotation = 10;  //it is not 10
-	double currentAmountOfDegrees = 0;
-	double degToRotate = 0;
+	private double degToRotate = 0;
+	private double rightMod = 0.05;  //Extra speed.
 	
 	
     public RotateDegrees(double rotateDegrees) {
@@ -27,21 +27,12 @@ public class RotateDegrees extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.encoders.getLeftEncoderInRotations();
-    	Robot.encoders.getRightEncoderInRotations();
-    	
-    	
-    	if (Robot.encoders.encL.getDistance() >= 1)
-    	{
-    		currentAmountOfDegrees += Robot.encoders.getLeftEncoder();
-    		Robot.encoders.resetEncoders();
-    	}
-    	
+    	Robot.driveTrain.driveMotors(0.5, -0.5 - rightMod); 
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return (currentAmountOfDegrees > degToRotate) ? true : false;
+        return (Robot.encoders.getLeftEncoderInRotations() * degreesMovedEachRotation >= degToRotate) ? true : false;
     }
 
     // Called once after isFinished returns true

@@ -10,6 +10,8 @@
 
 
 package org.usfirst.frc6408.CogBot;
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -34,10 +36,15 @@ public class Robot extends IterativeRobot {
     public static DriveTrain driveTrain;
     public static Encoders encoders;
     public static Winch winch;
+    public String AutonomousMovementType = "Middle"; // Middle, Left, Right
 
     public void robotInit() {
     RobotMap.init();
-
+    	//Set up cameras.
+    	UsbCamera camFront = CameraServer.getInstance().startAutomaticCapture("cam1", 1);
+    	UsbCamera camWinch = CameraServer.getInstance().startAutomaticCapture("cam0", 0);
+    
+    
     	//Instantiate subsystems
         driveTrain = new DriveTrain();
         encoders = new Encoders();
@@ -59,7 +66,17 @@ public class Robot extends IterativeRobot {
 
     public void autonomousInit() {
     	//Run the command for autonomous.
-    	autonomousCommand = new MoveInches(62.05 + 1);//distance to move.  +1 Is just in case.
+    	if(AutonomousMovementType == "Middle") {
+    		autonomousCommand = new MoveInches(62.05 + 1);//distance to move.  +1 Is just in case. 93.3 - ~30
+    	}
+    	else if(AutonomousMovementType == "Right") {
+    		autonomousCommand = new LeftLiftAutonomousMovement();
+    	}
+    	else if (AutonomousMovementType == "Middle") {
+    		autonomousCommand = new RightLiftAutonomousMovement();
+    	}
+    	 
+    	
         if (autonomousCommand != null) autonomousCommand.start();
     }
 
