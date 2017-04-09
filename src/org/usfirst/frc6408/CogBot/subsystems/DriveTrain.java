@@ -13,6 +13,7 @@ package org.usfirst.frc6408.CogBot.subsystems;
 import org.usfirst.frc6408.CogBot.Robot;
 import org.usfirst.frc6408.CogBot.RobotMap;
 import org.usfirst.frc6408.CogBot.commands.*;
+import org.w3c.dom.css.ElementCSSInlineStyle;
 
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -21,6 +22,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class DriveTrain extends Subsystem {
 	public double speed = 0.5;  //holds the speed value
 	public RobotDrive drive = new RobotDrive(0, 1, 2, 3);
+	public int isNegitave = 1;
 
     public void initDefaultCommand() {
     	
@@ -31,10 +33,25 @@ public class DriveTrain extends Subsystem {
     }
     
     public void driveDirection (double ySpeed, double xSpeed) {  //Drives the robot in teleop.
-    	drive.setLeftRightMotorOutputs (  //Moving the joy on the x turns the robot and turning it on the y moves back and forth
-    			(ySpeed - (xSpeed / 2)) * speed, 
-    			(ySpeed + (xSpeed / 2)) * speed
-    	); 
+    	double ySpeed2 = 0;
+    	double xSpeed2 = 0;
+    	
+    	if(ySpeed <= 0)
+    		ySpeed2 = -ySpeed;
+    	else
+    		ySpeed2 = ySpeed;
+    	
+    	if(xSpeed <= 0)
+    		xSpeed2 = -xSpeed;
+    	else
+    		xSpeed2 = xSpeed;
+    	
+    	if(ySpeed2 >= xSpeed2) {
+    		drive.setLeftRightMotorOutputs (ySpeed * speed * isNegitave * 1.22, ySpeed * speed * isNegitave); 
+    	}
+    	else {
+    		drive.setLeftRightMotorOutputs (xSpeed * speed / 1.12 * 1.5 * 1.22, -xSpeed * speed / 1.12 * 1.5);
+    	}
     }
 }
 

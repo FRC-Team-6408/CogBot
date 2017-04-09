@@ -18,8 +18,12 @@ import org.usfirst.frc6408.CogBot.subsystems.*;
 
 //TODO: Nothing
 public class OI {
+	public static final double MOTOR_STOP_SPEED = 0.0;
+	public static final double MOTOR_RUN_SPEED = 2;
 	
     public JoystickButton turnWinch;
+    
+    public JoystickButton changeForward;
     
     //Speed buttons control the speed of teleop.
     public JoystickButton speed0Button;
@@ -34,12 +38,14 @@ public class OI {
         mainJoy = new Joystick(0);
         
         turnWinch = new JoystickButton(mainJoy, 1);
-        turnWinch.whileHeld(new MoveWinch(MoveWinch.MOTOR_RUN_SPEED));  //TODO: set to 100, I set it to 50 so as not to break the machine.
-        turnWinch.whenReleased(new MoveWinch(MoveWinch.MOTOR_STOP_SPEED));  //Stops movement
-        turnWinch = new JoystickButton(mainJoy, 2);
-        turnWinch.whileHeld(new MoveWinch(-MoveWinch.MOTOR_RUN_SPEED));  //TODO: set to 100, I set it to 50 so as not to break the machine.
-        turnWinch.whenReleased(new MoveWinch(MoveWinch.MOTOR_STOP_SPEED));  //Stops movement
+        turnWinch.whileHeld(new MoveWinch(MOTOR_RUN_SPEED));  //TODO: set to 100, I set it to 50 so as not to break the machine.
+        turnWinch.whenReleased(new MoveWinch(MOTOR_STOP_SPEED));  //Stops movement
+        turnWinch = new JoystickButton(mainJoy, 5);
+        turnWinch.whileHeld(new MoveWinch(-MOTOR_RUN_SPEED));  //TODO: set to 100, I set it to 50 so as not to break the machine.
+        turnWinch.whenReleased(new MoveWinch(MOTOR_STOP_SPEED));  //Stops movement
         
+        changeForward = new JoystickButton(mainJoy, 2);
+        changeForward.whenPressed(new ChangeForwardDirection());
         
         speed100Button = new JoystickButton(mainJoy, 8);
         speed100Button.whenPressed(new SetDriveSpeed(100));

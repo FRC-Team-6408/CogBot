@@ -10,22 +10,25 @@
 
 package org.usfirst.frc6408.CogBot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
+
+import org.usfirst.frc6408.CogBot.OI;
 import org.usfirst.frc6408.CogBot.Robot;
 
 //TODO: Test values to see if autocorrect is too much
 public class MoveInches extends Command {
     private double inchesToMove;
     private double speed = 0.45;  //In percent.
-    private double rightMod = 0.05;  //Extra speed.
+    private double rightMod = -0.005;  //Extra speed.
+    private int PrecisionMod = 100;
+    private Timer timer;
     
-    /*private int timesLeftIsFaster = 0;  //How many ticks the left is faster than the right
-    private int timesRightIsFaster = 0;  //!"
-    private boolean IsRightFaster = false;
-    private boolean IsLeftFaster = false;*/
     
     public MoveInches(double inchesToMove) {
         this.inchesToMove = inchesToMove;
+        timer = new Timer();
+        timer.start();
         requires(Robot.driveTrain);
         requires(Robot.encoders);
     }
@@ -35,75 +38,42 @@ public class MoveInches extends Command {
     }
 
     protected void execute() {
-    	long leftDistance = Math.round(Robot.encoders.encR.getDistance() * 100);  //Gets left encoder value to two decimal places
-    	long rightDistance = Math.round(Robot.encoders.encL.getDistance() * 100);  //Gets right encoder value to two decimal places
+    	/*
+    	long leftDistance = Math.round(Robot.encoders.encR.getDistance() * PrecisionMod);  //Gets left encoder value to two decimal places
+    	long rightDistance = Math.round(Robot.encoders.encL.getDistance() * PrecisionMod);  //Gets right encoder value to two decimal places
     	if(leftDistance > rightDistance) {
-    		rightMod += 0.001;
+    		rightMod += 1 / PrecisionMod;
     		System.out.println(leftDistance + " is the left distance.  Smaller.");
     		System.out.println(rightDistance + " is the right distance.  Smaller.");
     		System.out.println((rightDistance - leftDistance) + " is the difference in distances.  Smaller.");
     		Robot.driveTrain.driveMotors(-speed, -speed - rightMod);  //- is fine
     	}
     	else if (leftDistance < rightDistance) {
-    		rightMod -= 0.00005;
+    		rightMod -= 1 / (PrecisionMod * 10);
     		System.out.println(leftDistance + " is the left distance.  Larger.");
     		System.out.println(rightDistance + " is the right distance.  Larger.");
     		System.out.println((rightDistance - leftDistance) + " is the difference in distances.  Larger.");
     		Robot.driveTrain.driveMotors(-speed, -speed - rightMod);  //- is fine
     	}
     	else {
+    		if(PrecisionMod < 100000) {
+    			PrecisionMod *= 10;
+    		}
+    		else
+    		{
+    			System.out.println(rightMod + " is the PERFECT modifier.");
+    		}
     		System.out.println(rightMod + " is the right modifier.");
-    		System.out.println((rightDistance - leftDistance) + " is the difference in distances.  Same.");
+    		System.out.println((rightDistance - leftDistance) + " is the difference in distances.  Same.  Precision: " + PrecisionMod);
     	}
-    	
-    	/*
-    	//Compares the two values, if one side has moved less than the other it speeds up a little bit.  
-    	//If they are even then it stays the same.
-    	//A type of autocorrect.
-    	if(rightDistance > leftDistance) {  
-    		Robot.driveTrain.driveMotors(speed + extraSpeed, speed);
-    		timesLeftIsFaster = 0;
-    		timesRightIsFaster += 1;
-    	}
-    	else if(leftDistance > rightDistance) {
-    		Robot.driveTrain.driveMotors(speed, speed + extraSpeed);
-    		timesLeftIsFaster += 1;
-    		timesRightIsFaster = 0;
-    	}
-    	else {
-    		timesRightIsFaster = 0;
-    		timesLeftIsFaster = 0;
-    		Robot.driveTrain.driveMotors(speed, speed);
-    	}
-    	
-    	
-    	//This checks for when the robot changes the autocorrect side and changes the speed of the autocorrect down.
-    	//eventually the autocorrect will take too long to change sides and be straight (enough).
-    	if(timesLeftIsFaster > 0) {
-    		if(IsLeftFaster == false)
-    		{
-    			extraSpeed -= 0.002;
-    		}
-    		IsLeftFaster = true;
-    		IsRightFaster = false;
-    	}
-    	else if (timesRightIsFaster > 0) {
-    		if(IsRightFaster == false)
-    		{
-    			extraSpeed -= 0.002;
-    		}
-    		IsLeftFaster = false;
-    		IsRightFaster = true;
-    	}
-    	else {
-    		IsLeftFaster = false;
-    		IsRightFaster = false;
-		}
-		*/
+    	*/
+    	//Robot.driveTrain.driveMotors(-0.5 * 1.02, -0.5);
+    	Robot.driveTrain.driveMotors(-0.5 * 1.22, -0.5);
     }
 
     protected boolean isFinished() {
-        return (Robot.encoders.getAverageDistance() >= inchesToMove) ? true : false;  //Checks if the robot has moved the required distance.
+        return timer.get() >= 2 ? true : false;  //usually 5
+    	//return (Robot.encoders.getAverageDistance() >= inchesToMove) ? true : false;  //Checks if the robot has moved the required distance.
     }
 
     protected void end() {

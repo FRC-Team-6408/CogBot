@@ -36,7 +36,7 @@ public class Robot extends IterativeRobot {
     public static DriveTrain driveTrain;
     public static Encoders encoders;
     public static Winch winch;
-    public String AutonomousMovementType = "Middle"; // Middle, Left, Right
+    public StartPosition AutonomousMovementType = StartPosition.Middle; // Middle, Left, Right
 
     public void robotInit() {
     RobotMap.init();
@@ -56,7 +56,7 @@ public class Robot extends IterativeRobot {
         autonomousCommand = new MoveInches(0);
     }
 
-    public void disabledInit(){
+    public void disabledInit() {
 
     }
 
@@ -66,16 +66,15 @@ public class Robot extends IterativeRobot {
 
     public void autonomousInit() {
     	//Run the command for autonomous.
-    	if(AutonomousMovementType == "Middle") {
-    		autonomousCommand = new MoveInches(62.05 + 1);//distance to move.  +1 Is just in case. 93.3 - ~30
+    	if(AutonomousMovementType == StartPosition.Middle) {
+    		autonomousCommand = new MoveInches(93.3 - 30);//distance to move.  +1 Is just in case. 93.3 - 30
     	}
-    	else if(AutonomousMovementType == "Right") {
+    	else if(AutonomousMovementType == StartPosition.Left) {
     		autonomousCommand = new LeftLiftAutonomousMovement();
     	}
-    	else if (AutonomousMovementType == "Middle") {
+    	else if (AutonomousMovementType == StartPosition.Right) {
     		autonomousCommand = new RightLiftAutonomousMovement();
     	}
-    	 
     	
         if (autonomousCommand != null) autonomousCommand.start();
     }
@@ -90,7 +89,7 @@ public class Robot extends IterativeRobot {
 
     public void teleopPeriodic() {
     	System.out.println(encoders.encL.getDistance() + " " + encoders.encR.getDistance());
-    	driveTrain.driveDirection(oi.getMainJoy().getY(), -oi.getMainJoy().getX());  //This moves the robot during teleop.
+    	driveTrain.driveDirection(-oi.getMainJoy().getY(), oi.getMainJoy().getX() / 1.5);  //This moves the robot during teleop.
         Scheduler.getInstance().run();
     }
 

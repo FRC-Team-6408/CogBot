@@ -27,12 +27,22 @@ public class RotateDegrees extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.driveTrain.driveMotors(0.5, -0.5 - rightMod); 
+    	if(degToRotate < 0) {  //Turning left
+    		Robot.driveTrain.driveMotors(0.5, -0.5 - rightMod); 
+    	}
+    	else if (degToRotate > 0) {  //Turning right
+    		Robot.driveTrain.driveMotors(-0.5, 0.5 + rightMod); 
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return (Robot.encoders.getLeftEncoderInRotations() * degreesMovedEachRotation >= degToRotate) ? true : false;
+    	if(degToRotate < 0) {  //Left
+    		return (Robot.encoders.getLeftEncoderInRotations() * degreesMovedEachRotation <= degToRotate) ? true : false;
+    	}
+    	else {  //Right
+    		return (Robot.encoders.getLeftEncoderInRotations() * degreesMovedEachRotation >= degToRotate) ? true : false;
+    	}
     }
 
     // Called once after isFinished returns true

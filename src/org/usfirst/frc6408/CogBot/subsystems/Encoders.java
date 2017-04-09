@@ -19,10 +19,12 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 //TODO: Finished
 public class Encoders extends Subsystem {
-	public Encoder encL = new Encoder(0, 1, false, EncodingType.k1X);  //TODO: check backwardsness
-	public Encoder encR = new Encoder(2, 3, true, EncodingType.k1X);  //Is on the opposide side as L so it is reversed.
+	public Encoder encL = new Encoder(0, 1, true, EncodingType.k4X);  //TODO: check backwardsness
+	public Encoder encR = new Encoder(2, 3, false, EncodingType.k1X);  //Is on the opposide side as L so it is reversed.
 	
 	public Encoders () {
+		encL.setDistancePerPulse(1);
+        encR.setDistancePerPulse(1);
 		resetEncoders();  //Resets encoders on startup.
 	}
 	
