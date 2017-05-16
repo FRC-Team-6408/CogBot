@@ -24,7 +24,6 @@ public class MoveInches extends Command {
     private int PrecisionMod = 100;
     private Timer timer;
     
-    
     public MoveInches(double inchesToMove) {
         this.inchesToMove = inchesToMove;
         timer = new Timer();
